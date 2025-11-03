@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Preventrix</title>
+  <link rel="stylesheet" href="Styles/dashboard.css">
+  <script type="module" src="dashboard.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">PREVENTRIX</div>
+
+    <nav class="menu">
+      <div class="profile-menu">
+        <img src="Images/Profile/default_profile.png" alt="Profile" class="profile-pic" id="profilePic">
+        <div class="dropdown" id="dropdownMenu">
+          <a href="profile.html" id="profileSettings">Profile Settings</a>
+          <a href="#" id="logoutBtn">Logout</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+<main class="dashboard-content">
+  <div class="main-actions">
+    <button id="storyModeBtn" class="action-btn">STORY MODE</button>
+    <button id="levelSelectBtn" class="action-btn">LEVEL SELECT</button>
+
+    <div class="score-container">
+      <h2>Current Score</h2>
+      <p id="userScore">0</p>
+    </div>
+  </div>
+
+  <div class="leaderboard-container">
+    <h2>Leaderboard</h2>
+    <table class="leaderboard">
+      <thead>
+        <tr>
+          <th>POS.</th>
+          <th>NAME</th>
+          <th>BADGES</th>
+          <th>SCORE</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardBody">
+        <!-- leaderboard rows will be dynamically filled by JS -->
+      </tbody>
+    </table>
+  </div>
+  <!-- Story Mode Modal -->
+<div id="storyModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h2>Story Mode</h2>
+    <p>How would you like to proceed?</p>
+    <div class="story-btn-group">
+      <button id="newGameBtn" class="btn">New Game</button>
+      <button id="continueBtn" class="btn">Continue</button>
+    </div>
+    <button id="closeStoryModal" class="btn">Close</button>
+  </div>
+</div>
+
+</main>
+
+
+</body>
+</html>

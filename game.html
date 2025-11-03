@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game</title>
+<link rel="stylesheet" href="Styles/game.css">
+</head>
+<body>
+
+<div class="game-container">
+
+    <iframe id="gameFrame" scrolling="no" allow="fullscreen"></iframe>
+
+    <div class="side-ui">
+        <div class="score-box">
+            <h3>Your Score</h3>
+            <span id="currentScore">0</span>
+        </div>
+        <div class="score-box">
+            <h3>Game Score</h3>
+            <span id="addedScore">0</span>
+        </div>
+
+        <button id="backBtn" class="ui-button red">Back to Dashboard</button>
+        <button id="proceedBtn" class="ui-button green">Proceed</button>
+
+    </div>
+
+</div>
+
+<!-- Badge Unlocked Modal -->
+<div id="badgeModal" class="modal">
+  <div class="modal-content">
+    <span id="badgeClose" class="close">&times;</span>
+    <h2>Badge Unlocked!</h2>
+    <img id="badgeImage" src="" alt="Badge" class="badge-img">
+    <p id="badgeText"></p>
+    <button id="badgeOkBtn">OK</button>
+  </div>
+</div>
+
+<script type="module" src="game.js" defer></script>
+</body>
+</html>

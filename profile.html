@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile | Preventrix</title>
+  <link rel="stylesheet" href="Styles/profile.css" />
+  <script type="module" src="profile.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">PREVENTRIX</div>
+    <nav class="menu">
+      <div class="profile-menu">
+        <img src="Images/Profile/default_profile.png" alt="Profile" class="profile-pic" id="profilePicTop">
+        <div class="dropdown" id="dropdownMenu">
+          <a href="#" id="profileSettingsLink">Profile Settings</a>
+          <a href="#" id="logoutBtnTop">Logout</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-wrap">
+    <section class="profile-card">
+      <h1>Profile</h1>
+
+      <div class="profile-grid">
+        <!-- Left column: fields -->
+        <div class="profile-fields">
+          <label for="username">Username</label>
+          <input id="username" type="text" placeholder="Enter username" />
+
+          <button id="changeUsernameBtn" class="btn">Change</button>
+
+          <label for="email">E-mail</label>
+          <input id="email" type="email" placeholder="you@example.com" />
+
+          <div class="email-change-row">
+            <input id="emailCurrentPw" type="password" placeholder="Current password (required to change email)" />
+            <button id="changeEmailBtn" class="btn small">Change</button>
+          </div>
+
+          <label for="newPassword">Change Password?</label>
+          <input id="newPassword" type="password" placeholder="New password" />
+          <input id="currentPasswordForPw" type="password" placeholder="Current password (required)" />
+
+          <button id="changePasswordBtn" class="btn">Change</button>
+        </div>
+
+        <!-- Right column: avatar upload -->
+        <div class="profile-avatar">
+          <div class="avatar-preview-wrap">
+            <img id="avatarPreview" src="Images/Profile/default_profile.png" alt="Avatar preview" />
+          </div>
+
+          <div class="upload-note">
+            <input id="fileInput" type="file" accept="image/*" />
+            <p class="hint">Click to choose or drop. Max file size: 1 MB.</p>
+            <button id="uploadAvatarBtn" class="btn">Upload</button>
+            <p id="uploadMessage" class="upload-message"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button id="saveBtn" class="btn primary">Save</button>
+        <button id="backBtn" class="btn">Back</button>
+      </div>
+
+      <p id="profileMessage" class="profile-message"></p>
+    </section>
+  </main>
+</body>
+</html>

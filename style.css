@@ -1,0 +1,379 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#bg {
+  background-repeat: no-repeat; /* ✅ stop tiling */
+  background-size: cover;       /* ✅ scale to fill screen */
+  transition: background-image 0.5s ease-in-out;
+  background-position: center;  /* ✅ keep subject centered */
+}
+
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  color: #fff;
+}
+
+/* Menu Screen containers */
+.screen {
+  text-align: center;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  min-width: 400px;
+
+  /* Transition setup */
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  position: absolute;       /* Stack screens on top of each other */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Story screen (full-viewport blank canvas) */
+.story-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000; /* start plain black, can change later */
+  color: #fff;
+
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.story-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Background fills entire screen */
+.background {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+}
+
+/* Dialogue box at bottom */
+.dialogue-box {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 200px;
+  background: linear-gradient(to bottom,#0b3b4a 0%,#000000 100%);
+  padding: 20px;
+  font-size: 1.2em;
+  z-index: 3;
+  backdrop-filter: blur(4px); 
+}
+
+.dialogue-box .name {
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+/* "Next" button inside dialogue */
+.dialogue-box .next-btn {
+  position: absolute;
+  bottom: 4px;
+  right: 20px;
+  width: 100px;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  color: #000;
+  font-size: 0.9em;
+  font-weight: normal;
+  padding: 6px 14px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.dialogue-box .next-btn:hover {
+  color: #e94560;
+}
+
+.dialogue-box .next-btn:active {
+  transform: scale(0.95);
+}
+
+/* UI buttons on top of dialogue (or elsewhere) */
+.ui {
+  position: absolute;
+  top: 20px; right: 20px;
+  z-index: 4;
+}
+
+/* Titles */
+h1 {
+  font-size: 3em;
+  margin-bottom: 40px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+button {
+  display: block;
+  width: 200px;
+  margin: 15px auto;
+  padding: 12px 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  background: #0f3460;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+  background: #e94560;
+  transform: scale(1.08);
+  box-shadow: 0 6px 15px rgba(233, 69, 96, 0.5);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+/* Game UI buttons (inside story screens) */
+.story-screen .ui {
+  position: absolute;
+  top: 20px;       /* distance from top edge */
+  left: 0;
+  width: 100%;     /* span across the full width */
+  display: flex;
+  justify-content: center;  /* center buttons horizontally */
+  z-index: 4;
+}
+
+.story-screen .ui button {
+  background: rgba(255, 255, 255, 0.5);
+  width: 100px;
+  border: none;
+  color: #000;
+  font-size: 0.75em;
+  font-weight: normal;
+  margin: 0 10px;   /* horizontal spacing */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.story-screen .ui button:hover {
+  color: #e94560;  /* highlight on hover */
+}
+
+.story-screen .ui button:active {
+  transform: scale(0.95);
+}
+
+.dialogue .red {
+  color: rgb(255, 217, 0);
+}
+.dialogue .green {
+  color: rgb(51, 255, 51);
+}
+
+.dialogue-box .name,
+.dialogue-box .dialogue {
+  transition: opacity 0.3s ease;
+}
+
+#dialogue-text span[style] {
+  all: unset;
+  color: red !important;
+}
+
+#character-layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.character {
+  position: absolute;
+  bottom: 18vh !important;
+  transform: translateX(-50%);
+  
+  height: 60vh;   /* ✅ Everyone same height */
+  width: auto;    /* ✅ Natural width preserved */
+  max-width: none; /* ✅ Let wide characters breathe */
+
+  opacity: 0.5;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  object-fit: contain;
+}
+
+.character.active {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.03);
+}
+
+.character.center { left: 50%; }
+.character.left { left: 30%; }
+.character.right { left: 70%; }
+.character.far-left { left: 15%; }
+.character.far-right { left: 85%; }
+
+
+@media (max-width: 768px) {
+  .character {
+    height: 50vh;
+    bottom: 24vh !important;
+  }
+
+  .dialogue-box {
+    padding: 20px;
+    font-size: 1.1rem;
+  }
+
+  #speakerName {
+    font-size: 1.2rem;
+  }
+}
+
+/* --- Emotions --- */
+
+/* Shock / Surprise */
+.emotion-shock {
+  animation: shockBounce 0.4s ease-out;
+}
+
+@keyframes shockBounce {
+  0% { transform: translateX(-50%) translateY(0) scale(1); }
+  20% { transform: translateX(-50%) translateY(-20px) scale(1.05); }
+  100% { transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+/* Laugh / Cheer */
+.emotion-laugh {
+  animation: laughWiggle 0.5s ease-in-out;
+}
+
+@keyframes laughWiggle {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  25% { transform: translateX(-50%) rotate(2deg); }
+  50% { transform: translateX(-50%) rotate(-2deg); }
+  75% { transform: translateX(-50%) rotate(2deg); }
+}
+
+/* Angry / Intense */
+.emotion-intense {
+  animation: intenseShake 0.4s linear;
+}
+
+@keyframes intenseShake {
+  0%, 100% { transform: translateX(-50%) translateX(0); }
+  25% { transform: translateX(calc(-50% - 6px)); }
+  75% { transform: translateX(calc(-50% + 6px)); }
+}
+
+/* Sad / Hesitant */
+.emotion-sad {
+  animation: sadDrop 0.5s ease-out;
+}
+
+@keyframes sadDrop {
+  0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(8px); opacity: 0.9; }
+}
+
+/* ---------- Glossary PDF Modal ---------- */
+.pdf-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900; /* above characters + dialogue */
+}
+
+.pdf-modal.hidden {
+  display: none;
+}
+
+.pdf-content {
+  width: 70%;
+  height: 70%;
+  background: #092b38;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #0ff;
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-viewer {
+  width: 100%;
+  height: 100%;
+}
+
+.close-pdf {
+  align-self: flex-end;
+  margin: 4px;
+  background: #ff4444;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .pdf-content {
+    width: 90%;
+    height: 85%;
+  }
+
+  .close-pdf {
+    font-size: 14px;
+    padding: 2px 8px;
+  }
+}
+
+/* Clickable glossary text */
+.glossary {
+  color: #feef60;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.glossary:hover {
+  color: #ffffff;
+}

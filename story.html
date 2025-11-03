@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Story | Preventrix</title>
+  <!-- your prototype CSS (uploaded earlier) -->
+  <link rel="stylesheet" href="style.css?v=2">
+  <style>
+    /* small overrides to ensure the VN fits full viewport and uses dialogue-box area */
+    body, html { height:100%; margin:0; }
+    .story-screen { z-index:0; }
+    .background { z-index:1; }
+    .character { z-index:2; bottom: 0; }
+    .dialogue-box { z-index:3; }
+    .dialogue-box .next-btn { right: 24px; }
+    /* make sure Next is visible on small screens */
+    @media (max-width:700px) {
+      .character { width: 220px; height: 330px; }
+      .dialogue-box { height: 220px; font-size: 1.05em; }
+    }
+  </style>
+  <script type="module" src="story.js"></script>
+</head>
+<body>
+  <div class="story-screen" id="storyScreen">
+    <div class="background" id="bg"></div>
+
+    <!-- ✅ Move character layer here -->
+    <div id="character-layer"></div>
+
+    <div class="ui">
+      <button id="menuBtn">Menu</button>
+      <button id="skipBtn">Skip</button>
+    </div>
+
+    <div class="dialogue-box" id="dialogueBox">
+      <div class="name" id="speakerName"></div>
+      <div class="dialogue" id="dialogueText"></div>
+      <button class="next-btn" id="nextBtn">Next</button>
+    </div>
+  </div>
+  <!-- 📘 PDF Glossary Modal -->
+<div id="pdfModal" class="pdf-modal hidden">
+  <div class="pdf-content">
+    <button id="closePdfBtn" class="close-pdf">✕</button>
+    <iframe id="pdfViewer" class="pdf-viewer" frameborder="0"></iframe>
+  </div>
+</div>
+
+</body>
+</html>

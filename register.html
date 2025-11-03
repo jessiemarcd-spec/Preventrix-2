@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Preventrix</title>
+  <link rel="stylesheet" href="Styles/register.css">
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <h1>PREVENTRIX</h1>
+      <p>Create your account below</p>
+    </div>
+    <div class="right-panel">
+      <h2>Register</h2>
+      <input type="email" id="regEmail" placeholder="Email" required />
+      <input type="password" id="regPassword" placeholder="Password" required />
+      <input type="password" id="regConfirmPassword" placeholder="Confirm Password" required />
+      <button id="registerBtn">Register</button>
+      <p id="message"></p>
+      <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA5oAMPGg8I6N1c5W8jlDkZUVltChk1Y8A",
+    authDomain: "gamesite-9850d.firebaseapp.com",
+    projectId: "gamesite-9850d",
+    storageBucket: "gamesite-9850d.firebasestorage.app",
+    messagingSenderId: "757972868175",
+    appId: "1:757972868175:web:043b2969258cf0bdfdde3a"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const registerBtn = document.getElementById("registerBtn");
+  const message = document.getElementById("message");
+
+  registerBtn.addEventListener("click", async () => {
+    const email = document.getElementById("regEmail").value;
+    const password = document.getElementById("regPassword").value;
+    const confirmPassword = document.getElementById("regConfirmPassword").value;
+
+    message.textContent = "";
+
+    if (password !== confirmPassword) {
+      message.textContent = "Passwords do not match!";
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await sendEmailVerification(userCredential.user);
+
+      // Create a Firestore document linked to this UID
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        email: email,
+        username: "",
+        score: 0,
+        safety_first: false,
+        maintenance_planner: false,
+        system_guardian: false,
+        elite_technician: false,
+        admin: false,
+        gear_up: false,
+        toolbox_challenge: false,
+        mission_planning: false,
+        clean_sweep: false,
+        cable_fix: false,
+        system_defender: false,
+        diagnosis_quest: false,
+        repair_rush: false,
+        final_boss: false
+      });
+
+      message.textContent = "Verification email sent! Please check your inbox.";
+    } catch (error) {
+      message.textContent = error.message;
+    }
+  });
+</script>
+
+</body>
+</html>
